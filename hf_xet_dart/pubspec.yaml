@@ -1,6 +1,6 @@
 name: hf_xet
 description: "xet client tech with dart support, used in huggingface_hub"
-version: 0.0.1
+version: 1.0.0
 homepage: https://github.com/NathanKolbas/xet-core-dart
 repository: https://github.com/NathanKolbas/xet-core-dart
 topics:
