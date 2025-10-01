@@ -3,9 +3,13 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
+import 'api/progress_update.dart';
 import 'api/token_refresh.dart';
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+part 'api.freezed.dart';
+part 'api.g.dart';
 
 // These functions are ignored because they are not marked as `pub`: `__repr__`, `__repr__`, `__str__`, `__str__`, `convert_data_processing_error`, `try_parse_progress_updaters`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `fmt`, `fmt`, `from`, `from`
@@ -17,7 +21,11 @@ Future<List<DartXetUploadInfo>> uploadBytes({
   String? hfHome,
   (String, BigInt)? tokenInfo,
   required FutureOr<DartTokenInfo> Function() tokenRefresher,
-  required FutureOr<void> Function(BigInt) progressUpdater,
+  required FutureOr<void> Function(
+    DartTotalProgressUpdate,
+    List<DartItemProgressUpdate>,
+  )
+  progressUpdater,
   String? repoType,
 }) => RustLib.instance.api.crateApiUploadBytes(
   fileContents: fileContents,
@@ -35,7 +43,11 @@ Future<List<DartXetUploadInfo>> uploadFiles({
   String? hfHome,
   (String, BigInt)? tokenInfo,
   required FutureOr<DartTokenInfo> Function() tokenRefresher,
-  required FutureOr<void> Function(BigInt) progressUpdater,
+  required FutureOr<void> Function(
+    DartTotalProgressUpdate,
+    List<DartItemProgressUpdate>,
+  )
+  progressUpdater,
   String? repoType,
 }) => RustLib.instance.api.crateApiUploadFiles(
   filePaths: filePaths,
@@ -53,7 +65,12 @@ Future<List<String>> downloadFiles({
   String? hfHome,
   (String, BigInt)? tokenInfo,
   required FutureOr<DartTokenInfo> Function() tokenRefresher,
-  required FutureOr<void> Function(String, BigInt) progressUpdater,
+  required FutureOr<void> Function(
+    String,
+    DartTotalProgressUpdate,
+    List<DartItemProgressUpdate>,
+  )
+  progressUpdater,
 }) => RustLib.instance.api.crateApiDownloadFiles(
   files: files,
   endpoint: endpoint,
@@ -73,17 +90,14 @@ Future<void> hfXet({
   huggingfaceHubVersion: huggingfaceHubVersion,
 );
 
-class DartXetDownloadInfo {
-  final String destinationPath;
-  final String hash;
-  final BigInt fileSize;
-
-  const DartXetDownloadInfo({
-    required this.destinationPath,
-    required this.hash,
-    required this.fileSize,
-  });
-
+@freezed
+sealed class DartXetDownloadInfo with _$DartXetDownloadInfo {
+  const DartXetDownloadInfo._();
+  const factory DartXetDownloadInfo({
+    required String destinationPath,
+    required String hash,
+    required BigInt fileSize,
+  }) = _DartXetDownloadInfo;
   // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
   static Future<DartXetDownloadInfo> newInstance({
     required String destinationPath,
@@ -95,26 +109,17 @@ class DartXetDownloadInfo {
     fileSize: fileSize,
   );
 
-  @override
-  int get hashCode =>
-      destinationPath.hashCode ^ hash.hashCode ^ fileSize.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is DartXetDownloadInfo &&
-          runtimeType == other.runtimeType &&
-          destinationPath == other.destinationPath &&
-          hash == other.hash &&
-          fileSize == other.fileSize;
+  factory DartXetDownloadInfo.fromJson(Map<String, dynamic> json) =>
+      _$DartXetDownloadInfoFromJson(json);
 }
 
-class DartXetUploadInfo {
-  final String hash;
-  final BigInt fileSize;
-
-  const DartXetUploadInfo({required this.hash, required this.fileSize});
-
+@freezed
+sealed class DartXetUploadInfo with _$DartXetUploadInfo {
+  const DartXetUploadInfo._();
+  const factory DartXetUploadInfo({
+    required String hash,
+    required BigInt fileSize,
+  }) = _DartXetUploadInfo;
   // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
   static Future<DartXetUploadInfo> newInstance({
     required String hash,
@@ -124,14 +129,6 @@ class DartXetUploadInfo {
     fileSize: fileSize,
   );
 
-  @override
-  int get hashCode => hash.hashCode ^ fileSize.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is DartXetUploadInfo &&
-          runtimeType == other.runtimeType &&
-          hash == other.hash &&
-          fileSize == other.fileSize;
+  factory DartXetUploadInfo.fromJson(Map<String, dynamic> json) =>
+      _$DartXetUploadInfoFromJson(json);
 }

@@ -1,30 +1,45 @@
 library;
 
 export 'src/rust/api/token_refresh.dart';
+export 'src/rust/api/progress_update.dart';
 export 'src/rust/api.dart' show DartXetDownloadInfo, DartXetUploadInfo;
 
 import 'dart:async' show FutureOr;
 import 'dart:typed_data' show Uint8List;
 
 import 'src/rust/api.dart' as api;
+import 'src/rust/api/progress_update.dart';
 import 'src/rust/api/token_refresh.dart';
 import 'src/rust/frb_generated.dart' show RustLib;
 
 // Some of the types cannot be made optional (passed dart functions to rust) so
 // we handle it on the dart side
 
-DartTokenInfo _tokenRefresher() => DartTokenInfo(token: '', expiration: BigInt.zero);
+DartTokenInfo _tokenRefresher() => DartTokenInfo(
+  token: '',
+  expiration: BigInt.zero,
+);
 
-void _progressUpdater(BigInt _) {}
+void _progressUpdater(
+  DartTotalProgressUpdate _,
+  List<DartItemProgressUpdate> _,
+) {}
 
-void _progressUpdaterWithFileName(String _, BigInt _) {}
+void _progressUpdaterWithFileName(
+  String _,
+  DartTotalProgressUpdate _,
+  List<DartItemProgressUpdate> _,
+) {}
 
 Future<List<api.DartXetUploadInfo>> uploadBytes({
   required List<Uint8List> fileContents,
   String? endpoint,
   (String token, BigInt expiration)? tokenInfo,
   FutureOr<DartTokenInfo> Function()? tokenRefresher,
-  FutureOr<void> Function(BigInt progress)? progressUpdater,
+  FutureOr<void> Function(
+    DartTotalProgressUpdate totalUpdate,
+    List<DartItemProgressUpdate> itemUpdates,
+  )? progressUpdater,
   String? repoType,
 }) => api.uploadBytes(
   fileContents: fileContents,
@@ -41,7 +56,10 @@ Future<List<api.DartXetUploadInfo>> uploadFiles({
   String? endpoint,
   (String token, BigInt expiration)? tokenInfo,
   FutureOr<DartTokenInfo> Function()? tokenRefresher,
-  FutureOr<void> Function(BigInt progress)? progressUpdater,
+  FutureOr<void> Function(
+    DartTotalProgressUpdate totalUpdate,
+    List<DartItemProgressUpdate> itemUpdates,
+  )? progressUpdater,
   String? repoType,
 }) => api.uploadFiles(
   filePaths: filePaths,
@@ -62,7 +80,11 @@ Future<List<String>> downloadFiles({
   /// [fileName] - indicates the progress of a certain file.
   /// [progress] - the number of bytes downloaded since the last update. The sum
   /// of all the progress callbacks should equal to the size of the [fileName].
-  FutureOr<void> Function(String fileName, BigInt progress)? progressUpdater,
+  FutureOr<void> Function(
+    String fileName,
+    DartTotalProgressUpdate totalUpdate,
+    List<DartItemProgressUpdate> itemUpdates,
+  )? progressUpdater,
 }) => api.downloadFiles(
   files: files,
   endpoint: endpoint,

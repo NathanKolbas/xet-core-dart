@@ -114,43 +114,19 @@ fn wire__crate__api__download_files_impl(
     rust_vec_len_: i32,
     data_len_: i32,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "download_files",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
-            };
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "download_files", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_files = <Vec<crate::api::DartXetDownloadInfo>>::sse_decode(&mut deserializer);
-            let api_endpoint = <Option<String>>::sse_decode(&mut deserializer);
-            let api_hf_home = <Option<String>>::sse_decode(&mut deserializer);
-            let api_token_info = <Option<(String, u64)>>::sse_decode(&mut deserializer);
-            let api_token_refresher = decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
-            let api_progress_updater = decode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, String>((move || {
-                    let output_ok = crate::api::download_files(
-                        api_files,
-                        api_endpoint,
-                        api_hf_home,
-                        api_token_info,
-                        api_token_refresher,
-                        api_progress_updater,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
+let api_endpoint = <Option<String>>::sse_decode(&mut deserializer);
+let api_hf_home = <Option<String>>::sse_decode(&mut deserializer);
+let api_token_info = <Option<(String,u64,)>>::sse_decode(&mut deserializer);
+let api_token_refresher = decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));
+let api_progress_updater = decode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));deserializer.end(); move |context|  {
+                    transform_result_sse::<_, String>((move ||  {
+                         let output_ok = crate::api::download_files(api_files, api_endpoint, api_hf_home, api_token_info, api_token_refresher, api_progress_updater)?;   Ok(output_ok)
+                    })())
+                } })
 }
 fn wire__crate__api__hf_xet_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
@@ -228,45 +204,20 @@ fn wire__crate__api__upload_bytes_impl(
     rust_vec_len_: i32,
     data_len_: i32,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "upload_bytes",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
-            };
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "upload_bytes", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_file_contents = <Vec<Vec<u8>>>::sse_decode(&mut deserializer);
-            let api_endpoint = <Option<String>>::sse_decode(&mut deserializer);
-            let api_hf_home = <Option<String>>::sse_decode(&mut deserializer);
-            let api_token_info = <Option<(String, u64)>>::sse_decode(&mut deserializer);
-            let api_token_refresher = decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
-            let api_progress_updater = decode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
-            let api__repo_type = <Option<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, String>((move || {
-                    let output_ok = crate::api::upload_bytes(
-                        api_file_contents,
-                        api_endpoint,
-                        api_hf_home,
-                        api_token_info,
-                        api_token_refresher,
-                        api_progress_updater,
-                        api__repo_type,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
+let api_endpoint = <Option<String>>::sse_decode(&mut deserializer);
+let api_hf_home = <Option<String>>::sse_decode(&mut deserializer);
+let api_token_info = <Option<(String,u64,)>>::sse_decode(&mut deserializer);
+let api_token_refresher = decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));
+let api_progress_updater = decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));
+let api__repo_type = <Option<String>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
+                    transform_result_sse::<_, String>((move ||  {
+                         let output_ok = crate::api::upload_bytes(api_file_contents, api_endpoint, api_hf_home, api_token_info, api_token_refresher, api_progress_updater, api__repo_type)?;   Ok(output_ok)
+                    })())
+                } })
 }
 fn wire__crate__api__upload_files_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
@@ -274,56 +225,44 @@ fn wire__crate__api__upload_files_impl(
     rust_vec_len_: i32,
     data_len_: i32,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "upload_files",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
-            };
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "upload_files", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { 
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
             let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_file_paths = <Vec<String>>::sse_decode(&mut deserializer);
-            let api_endpoint = <Option<String>>::sse_decode(&mut deserializer);
-            let api_hf_home = <Option<String>>::sse_decode(&mut deserializer);
-            let api_token_info = <Option<(String, u64)>>::sse_decode(&mut deserializer);
-            let api_token_refresher = decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
-            let api_progress_updater = decode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
-            let api__repo_type = <Option<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
-            move |context| {
-                transform_result_sse::<_, String>((move || {
-                    let output_ok = crate::api::upload_files(
-                        api_file_paths,
-                        api_endpoint,
-                        api_hf_home,
-                        api_token_info,
-                        api_token_refresher,
-                        api_progress_updater,
-                        api__repo_type,
-                    )?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
+let api_endpoint = <Option<String>>::sse_decode(&mut deserializer);
+let api_hf_home = <Option<String>>::sse_decode(&mut deserializer);
+let api_token_info = <Option<(String,u64,)>>::sse_decode(&mut deserializer);
+let api_token_refresher = decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));
+let api_progress_updater = decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(<flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer));
+let api__repo_type = <Option<String>>::sse_decode(&mut deserializer);deserializer.end(); move |context|  {
+                    transform_result_sse::<_, String>((move ||  {
+                         let output_ok = crate::api::upload_files(api_file_paths, api_endpoint, api_hf_home, api_token_info, api_token_refresher, api_progress_updater, api__repo_type)?;   Ok(output_ok)
+                    })())
+                } })
 }
 
 // Section: related_funcs
 
-fn decode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
+fn decode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
     dart_opaque: flutter_rust_bridge::DartOpaque,
-) -> impl Fn(String, u64) -> flutter_rust_bridge::DartFnFuture<()> {
+) -> impl Fn(
+    String,
+    crate::api::progress_update::DartTotalProgressUpdate,
+    Vec<crate::api::progress_update::DartItemProgressUpdate>,
+) -> flutter_rust_bridge::DartFnFuture<()> {
     use flutter_rust_bridge::IntoDart;
 
-    async fn body(dart_opaque: flutter_rust_bridge::DartOpaque, arg0: String, arg1: u64) -> () {
-        let args = vec![arg0.into_into_dart().into_dart(), arg1.into_into_dart().into_dart()];
+    async fn body(
+        dart_opaque: flutter_rust_bridge::DartOpaque,
+        arg0: String,
+        arg1: crate::api::progress_update::DartTotalProgressUpdate,
+        arg2: Vec<crate::api::progress_update::DartItemProgressUpdate>,
+    ) -> () {
+        let args = vec![
+            arg0.into_into_dart().into_dart(),
+            arg1.into_into_dart().into_dart(),
+            arg2.into_into_dart().into_dart(),
+        ];
         let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
@@ -340,8 +279,10 @@ fn decode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
         ans
     }
 
-    move |arg0: String, arg1: u64| {
-        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone(), arg0, arg1))
+    move |arg0: String,
+          arg1: crate::api::progress_update::DartTotalProgressUpdate,
+          arg2: Vec<crate::api::progress_update::DartItemProgressUpdate>| {
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone(), arg0, arg1, arg2))
     }
 }
 fn decode_DartFn_Inputs__Output_String_AnyhowException(
@@ -419,13 +360,20 @@ fn decode_DartFn_Inputs__Output_opt_String_AnyhowException(
 
     move || flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
 }
-fn decode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
+fn decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
     dart_opaque: flutter_rust_bridge::DartOpaque,
-) -> impl Fn(u64) -> flutter_rust_bridge::DartFnFuture<()> {
+) -> impl Fn(
+    crate::api::progress_update::DartTotalProgressUpdate,
+    Vec<crate::api::progress_update::DartItemProgressUpdate>,
+) -> flutter_rust_bridge::DartFnFuture<()> {
     use flutter_rust_bridge::IntoDart;
 
-    async fn body(dart_opaque: flutter_rust_bridge::DartOpaque, arg0: u64) -> () {
-        let args = vec![arg0.into_into_dart().into_dart()];
+    async fn body(
+        dart_opaque: flutter_rust_bridge::DartOpaque,
+        arg0: crate::api::progress_update::DartTotalProgressUpdate,
+        arg1: Vec<crate::api::progress_update::DartItemProgressUpdate>,
+    ) -> () {
+        let args = vec![arg0.into_into_dart().into_dart(), arg1.into_into_dart().into_dart()];
         let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
@@ -442,7 +390,10 @@ fn decode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
         ans
     }
 
-    move |arg0: u64| flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone(), arg0))
+    move |arg0: crate::api::progress_update::DartTotalProgressUpdate,
+          arg1: Vec<crate::api::progress_update::DartItemProgressUpdate>| {
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone(), arg0, arg1))
+    }
 }
 
 // Section: dart2rust
@@ -471,6 +422,22 @@ impl SseDecode for String {
     }
 }
 
+impl SseDecode for crate::api::progress_update::DartItemProgressUpdate {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_itemName = <String>::sse_decode(deserializer);
+        let mut var_totalBytes = <u64>::sse_decode(deserializer);
+        let mut var_bytesCompleted = <u64>::sse_decode(deserializer);
+        let mut var_bytesCompletionIncrement = <u64>::sse_decode(deserializer);
+        return crate::api::progress_update::DartItemProgressUpdate {
+            item_name: var_itemName,
+            total_bytes: var_totalBytes,
+            bytes_completed: var_bytesCompleted,
+            bytes_completion_increment: var_bytesCompletionIncrement,
+        };
+    }
+}
+
 impl SseDecode for crate::api::token_refresh::DartTokenInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -479,6 +446,34 @@ impl SseDecode for crate::api::token_refresh::DartTokenInfo {
         return crate::api::token_refresh::DartTokenInfo {
             token: var_token,
             expiration: var_expiration,
+        };
+    }
+}
+
+impl SseDecode for crate::api::progress_update::DartTotalProgressUpdate {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_totalBytes = <u64>::sse_decode(deserializer);
+        let mut var_totalBytesIncrement = <u64>::sse_decode(deserializer);
+        let mut var_totalBytesCompleted = <u64>::sse_decode(deserializer);
+        let mut var_totalBytesCompletionIncrement = <u64>::sse_decode(deserializer);
+        let mut var_totalBytesCompletionRate = <Option<f64>>::sse_decode(deserializer);
+        let mut var_totalTransferBytes = <u64>::sse_decode(deserializer);
+        let mut var_totalTransferBytesIncrement = <u64>::sse_decode(deserializer);
+        let mut var_totalTransferBytesCompleted = <u64>::sse_decode(deserializer);
+        let mut var_totalTransferBytesCompletionIncrement = <u64>::sse_decode(deserializer);
+        let mut var_totalTransferBytesCompletionRate = <Option<f64>>::sse_decode(deserializer);
+        return crate::api::progress_update::DartTotalProgressUpdate {
+            total_bytes: var_totalBytes,
+            total_bytes_increment: var_totalBytesIncrement,
+            total_bytes_completed: var_totalBytesCompleted,
+            total_bytes_completion_increment: var_totalBytesCompletionIncrement,
+            total_bytes_completion_rate: var_totalBytesCompletionRate,
+            total_transfer_bytes: var_totalTransferBytes,
+            total_transfer_bytes_increment: var_totalTransferBytesIncrement,
+            total_transfer_bytes_completed: var_totalTransferBytesCompleted,
+            total_transfer_bytes_completion_increment: var_totalTransferBytesCompletionIncrement,
+            total_transfer_bytes_completion_rate: var_totalTransferBytesCompletionRate,
         };
     }
 }
@@ -509,6 +504,13 @@ impl SseDecode for crate::api::DartXetUploadInfo {
     }
 }
 
+impl SseDecode for f64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_f64::<NativeEndian>().unwrap()
+    }
+}
+
 impl SseDecode for isize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -523,6 +525,18 @@ impl SseDecode for Vec<String> {
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
             ans_.push(<String>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::progress_update::DartItemProgressUpdate> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::progress_update::DartItemProgressUpdate>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -581,6 +595,17 @@ impl SseDecode for Option<String> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<String>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<f64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<f64>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -682,6 +707,29 @@ fn pde_ffi_dispatcher_sync_impl(
 // Section: rust2dart
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::progress_update::DartItemProgressUpdate {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.item_name.into_into_dart().into_dart(),
+            self.total_bytes.into_into_dart().into_dart(),
+            self.bytes_completed.into_into_dart().into_dart(),
+            self.bytes_completion_increment.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::progress_update::DartItemProgressUpdate
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::progress_update::DartItemProgressUpdate>
+    for crate::api::progress_update::DartItemProgressUpdate
+{
+    fn into_into_dart(self) -> crate::api::progress_update::DartItemProgressUpdate {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::token_refresh::DartTokenInfo {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -696,6 +744,35 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::token_refresh::DartTokenInfo>
     for crate::api::token_refresh::DartTokenInfo
 {
     fn into_into_dart(self) -> crate::api::token_refresh::DartTokenInfo {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::progress_update::DartTotalProgressUpdate {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.total_bytes.into_into_dart().into_dart(),
+            self.total_bytes_increment.into_into_dart().into_dart(),
+            self.total_bytes_completed.into_into_dart().into_dart(),
+            self.total_bytes_completion_increment.into_into_dart().into_dart(),
+            self.total_bytes_completion_rate.into_into_dart().into_dart(),
+            self.total_transfer_bytes.into_into_dart().into_dart(),
+            self.total_transfer_bytes_increment.into_into_dart().into_dart(),
+            self.total_transfer_bytes_completed.into_into_dart().into_dart(),
+            self.total_transfer_bytes_completion_increment.into_into_dart().into_dart(),
+            self.total_transfer_bytes_completion_rate.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::progress_update::DartTotalProgressUpdate
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::progress_update::DartTotalProgressUpdate>
+    for crate::api::progress_update::DartTotalProgressUpdate
+{
+    fn into_into_dart(self) -> crate::api::progress_update::DartTotalProgressUpdate {
         self
     }
 }
@@ -754,11 +831,37 @@ impl SseEncode for String {
     }
 }
 
+impl SseEncode for crate::api::progress_update::DartItemProgressUpdate {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.item_name, serializer);
+        <u64>::sse_encode(self.total_bytes, serializer);
+        <u64>::sse_encode(self.bytes_completed, serializer);
+        <u64>::sse_encode(self.bytes_completion_increment, serializer);
+    }
+}
+
 impl SseEncode for crate::api::token_refresh::DartTokenInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.token, serializer);
         <u64>::sse_encode(self.expiration, serializer);
+    }
+}
+
+impl SseEncode for crate::api::progress_update::DartTotalProgressUpdate {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.total_bytes, serializer);
+        <u64>::sse_encode(self.total_bytes_increment, serializer);
+        <u64>::sse_encode(self.total_bytes_completed, serializer);
+        <u64>::sse_encode(self.total_bytes_completion_increment, serializer);
+        <Option<f64>>::sse_encode(self.total_bytes_completion_rate, serializer);
+        <u64>::sse_encode(self.total_transfer_bytes, serializer);
+        <u64>::sse_encode(self.total_transfer_bytes_increment, serializer);
+        <u64>::sse_encode(self.total_transfer_bytes_completed, serializer);
+        <u64>::sse_encode(self.total_transfer_bytes_completion_increment, serializer);
+        <Option<f64>>::sse_encode(self.total_transfer_bytes_completion_rate, serializer);
     }
 }
 
@@ -779,6 +882,13 @@ impl SseEncode for crate::api::DartXetUploadInfo {
     }
 }
 
+impl SseEncode for f64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_f64::<NativeEndian>(self).unwrap();
+    }
+}
+
 impl SseEncode for isize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -792,6 +902,16 @@ impl SseEncode for Vec<String> {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <String>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::progress_update::DartItemProgressUpdate> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::progress_update::DartItemProgressUpdate>::sse_encode(item, serializer);
         }
     }
 }
@@ -842,6 +962,16 @@ impl SseEncode for Option<String> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <String>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<f64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <f64>::sse_encode(value, serializer);
         }
     }
 }

@@ -7,6 +7,7 @@
 // ignore_for_file: argument_type_not_assignable
 
 import 'api.dart';
+import 'api/progress_update.dart';
 import 'api/token_refresh.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -25,8 +26,14 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
   @protected
-  FutureOr<void> Function(String, BigInt)
-  dco_decode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(dynamic raw);
+  FutureOr<void> Function(
+    String,
+    DartTotalProgressUpdate,
+    List<DartItemProgressUpdate>,
+  )
+  dco_decode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    dynamic raw,
+  );
 
   @protected
   FutureOr<String> Function()
@@ -41,8 +48,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   dco_decode_DartFn_Inputs__Output_opt_String_AnyhowException(dynamic raw);
 
   @protected
-  FutureOr<void> Function(BigInt)
-  dco_decode_DartFn_Inputs_u_64_Output_unit_AnyhowException(dynamic raw);
+  FutureOr<void> Function(DartTotalProgressUpdate, List<DartItemProgressUpdate>)
+  dco_decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    dynamic raw,
+  );
 
   @protected
   Object dco_decode_DartOpaque(dynamic raw);
@@ -51,10 +60,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   String dco_decode_String(dynamic raw);
 
   @protected
+  double dco_decode_box_autoadd_f_64(dynamic raw);
+
+  @protected
   (String, BigInt) dco_decode_box_autoadd_record_string_u_64(dynamic raw);
 
   @protected
+  DartItemProgressUpdate dco_decode_dart_item_progress_update(dynamic raw);
+
+  @protected
   DartTokenInfo dco_decode_dart_token_info(dynamic raw);
+
+  @protected
+  DartTotalProgressUpdate dco_decode_dart_total_progress_update(dynamic raw);
 
   @protected
   DartXetDownloadInfo dco_decode_dart_xet_download_info(dynamic raw);
@@ -63,10 +81,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   DartXetUploadInfo dco_decode_dart_xet_upload_info(dynamic raw);
 
   @protected
+  double dco_decode_f_64(dynamic raw);
+
+  @protected
   PlatformInt64 dco_decode_isize(dynamic raw);
 
   @protected
   List<String> dco_decode_list_String(dynamic raw);
+
+  @protected
+  List<DartItemProgressUpdate> dco_decode_list_dart_item_progress_update(
+    dynamic raw,
+  );
 
   @protected
   List<DartXetDownloadInfo> dco_decode_list_dart_xet_download_info(dynamic raw);
@@ -82,6 +108,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
+
+  @protected
+  double? dco_decode_opt_box_autoadd_f_64(dynamic raw);
 
   @protected
   (String, BigInt)? dco_decode_opt_box_autoadd_record_string_u_64(dynamic raw);
@@ -111,12 +140,25 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   String sse_decode_String(SseDeserializer deserializer);
 
   @protected
+  double sse_decode_box_autoadd_f_64(SseDeserializer deserializer);
+
+  @protected
   (String, BigInt) sse_decode_box_autoadd_record_string_u_64(
     SseDeserializer deserializer,
   );
 
   @protected
+  DartItemProgressUpdate sse_decode_dart_item_progress_update(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   DartTokenInfo sse_decode_dart_token_info(SseDeserializer deserializer);
+
+  @protected
+  DartTotalProgressUpdate sse_decode_dart_total_progress_update(
+    SseDeserializer deserializer,
+  );
 
   @protected
   DartXetDownloadInfo sse_decode_dart_xet_download_info(
@@ -129,10 +171,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  double sse_decode_f_64(SseDeserializer deserializer);
+
+  @protected
   PlatformInt64 sse_decode_isize(SseDeserializer deserializer);
 
   @protected
   List<String> sse_decode_list_String(SseDeserializer deserializer);
+
+  @protected
+  List<DartItemProgressUpdate> sse_decode_list_dart_item_progress_update(
+    SseDeserializer deserializer,
+  );
 
   @protected
   List<DartXetDownloadInfo> sse_decode_list_dart_xet_download_info(
@@ -154,6 +204,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
+
+  @protected
+  double? sse_decode_opt_box_autoadd_f_64(SseDeserializer deserializer);
 
   @protected
   (String, BigInt)? sse_decode_opt_box_autoadd_record_string_u_64(
@@ -188,8 +241,14 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  void sse_encode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
-    FutureOr<void> Function(String, BigInt) self,
+  void
+  sse_encode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    FutureOr<void> Function(
+      String,
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    self,
     SseSerializer serializer,
   );
 
@@ -212,8 +271,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  void sse_encode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
-    FutureOr<void> Function(BigInt) self,
+  void
+  sse_encode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    self,
     SseSerializer serializer,
   );
 
@@ -224,13 +288,28 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_String(String self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_f_64(double self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_record_string_u_64(
     (String, BigInt) self,
     SseSerializer serializer,
   );
 
   @protected
+  void sse_encode_dart_item_progress_update(
+    DartItemProgressUpdate self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_dart_token_info(DartTokenInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_dart_total_progress_update(
+    DartTotalProgressUpdate self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_dart_xet_download_info(
@@ -245,10 +324,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_f_64(double self, SseSerializer serializer);
+
+  @protected
   void sse_encode_isize(PlatformInt64 self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_String(List<String> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_dart_item_progress_update(
+    List<DartItemProgressUpdate> self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_list_dart_xet_download_info(
@@ -276,6 +364,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_f_64(double? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_record_string_u_64(

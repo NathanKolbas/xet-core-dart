@@ -5,27 +5,21 @@
 
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+part 'token_refresh.freezed.dart';
+part 'token_refresh.g.dart';
 
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `WrappedTokenRefresher`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `refresh`
 // These functions are ignored (category: IgnoreBecauseExplicitAttribute): `from_func`
 
-class DartTokenInfo {
-  final String token;
+@freezed
+sealed class DartTokenInfo with _$DartTokenInfo {
+  const factory DartTokenInfo({
+    required String token,
+    required BigInt expiration,
+  }) = _DartTokenInfo;
 
-  /// unixtime (in seconds) of expiration
-  final BigInt expiration;
-
-  const DartTokenInfo({required this.token, required this.expiration});
-
-  @override
-  int get hashCode => token.hashCode ^ expiration.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is DartTokenInfo &&
-          runtimeType == other.runtimeType &&
-          token == other.token &&
-          expiration == other.expiration;
+  factory DartTokenInfo.fromJson(Map<String, dynamic> json) =>
+      _$DartTokenInfoFromJson(json);
 }

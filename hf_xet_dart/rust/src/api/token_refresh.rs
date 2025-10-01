@@ -2,6 +2,7 @@ use flutter_rust_bridge::{frb, DartFnFuture};
 pub use utils::auth::{TokenInfo, TokenRefresher};
 use utils::errors::AuthError;
 
+#[frb(json_serializable)]
 pub struct DartTokenInfo {
     pub token: String,
     /// unixtime (in seconds) of expiration

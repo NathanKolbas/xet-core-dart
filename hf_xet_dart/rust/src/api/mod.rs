@@ -20,7 +20,7 @@ pub use utils::auth::TokenRefresher;
 use xet_runtime::file_handle_limits;
 use crate::api::dart::{set_env_var, DartWrapper};
 use crate::api::logging::init_logging;
-use crate::api::progress_update::WrappedProgressUpdater;
+use crate::api::progress_update::{DartItemProgressUpdate, DartTotalProgressUpdate, WrappedProgressUpdater};
 use crate::api::token_refresh::DartTokenInfo;
 
 // For profiling
@@ -43,7 +43,10 @@ pub fn upload_bytes(
     // frb doesn't yet support passing function wrapped by an Option. Handled on the dart side.
     token_refresher: impl Fn() -> DartFnFuture<DartTokenInfo> + Send + Sync + 'static,
     // frb doesn't yet support passing function wrapped by an Option. Handled on the dart side.
-    progress_updater: impl Fn(u64) -> DartFnFuture<()> + Send + Sync + 'static,
+    progress_updater: impl Fn(
+        DartTotalProgressUpdate,
+        Vec<DartItemProgressUpdate>,
+    ) -> DartFnFuture<()> + Send + Sync + 'static,
     _repo_type: Option<String>,
 ) -> Result<Vec<DartXetUploadInfo>, String> {
     set_env_var("HF_HOME".to_string(), hf_home)?;
@@ -86,7 +89,10 @@ pub fn upload_files(
     // frb doesn't yet support passing function wrapped by an Option. Handled on the dart side.
     token_refresher: impl Fn() -> DartFnFuture<DartTokenInfo> + Send + Sync + 'static,
     // frb doesn't yet support passing function wrapped by an Option. Handled on the dart side.
-    progress_updater: impl Fn(u64) -> DartFnFuture<()> + Send + Sync + 'static,
+    progress_updater: impl Fn(
+        DartTotalProgressUpdate,
+        Vec<DartItemProgressUpdate>,
+    ) -> DartFnFuture<()> + Send + Sync + 'static,
     _repo_type: Option<String>,
 ) -> Result<Vec<DartXetUploadInfo>, String> {
     set_env_var("HF_HOME".to_string(), hf_home)?;
@@ -133,7 +139,11 @@ pub fn download_files(
     // frb doesn't yet support passing function wrapped by an Option. Handled on the dart side.
     token_refresher: impl Fn() -> DartFnFuture<DartTokenInfo> + Send + Sync + 'static,
     // frb doesn't yet support passing functions wrapped by an Option<Vec<>>. Handled on the dart side.
-    progress_updater: impl Fn(String, u64) -> DartFnFuture<()> + Send + Sync + 'static,
+    progress_updater: impl Fn(
+        String,
+        DartTotalProgressUpdate,
+        Vec<DartItemProgressUpdate>,
+    ) -> DartFnFuture<()> + Send + Sync + 'static,
 ) -> Result<Vec<String>, String> {
     set_env_var("HF_HOME".to_string(), hf_home)?;
 
@@ -173,14 +183,23 @@ pub fn force_sigint_shutdown() -> Result<(), String> {
 
 fn try_parse_progress_updaters(
     files: Vec<DartXetDownloadInfo>,
-    progress_updater: Arc<dyn Fn(String, u64) -> DartFnFuture<()> + Send + Sync + 'static>,
+    progress_updater: Arc<dyn Fn(
+        String,
+        DartTotalProgressUpdate,
+        Vec<DartItemProgressUpdate>,
+    ) -> DartFnFuture<()> + Send + Sync + 'static>,
 ) -> Result<Vec<Arc<dyn TrackingProgressUpdater>>, String> {
     // Since we can't yet pass a Vec of callbacks we will use progress_updater to send back the file
     // path and the progress.
     let mut updaters = Vec::with_capacity(files.len());
     for file in files {
         let progress_updater_ref = Arc::clone(&progress_updater);
-        let callback_wrapped = Option::from(move |p: u64| progress_updater_ref(file.destination_path.clone(), p));
+        let callback_wrapped = Option::from(
+            move |
+                total_update: DartTotalProgressUpdate,
+                item_updates: Vec<DartItemProgressUpdate>,
+            | progress_updater_ref(file.destination_path.clone(), total_update, item_updates)
+        );
         let wrapped = Arc::new(WrappedProgressUpdater::new(callback_wrapped)?);
         updaters.push(wrapped as Arc<dyn TrackingProgressUpdater>);
     }
@@ -189,6 +208,7 @@ fn try_parse_progress_updaters(
 
 // TODO: we won't need to subclass this in the next major version update.
 #[derive(Clone, Debug)]
+#[frb(json_serializable)]
 pub struct DartXetDownloadInfo {
     pub destination_path: String,
     pub hash: String,
@@ -214,6 +234,7 @@ impl DartXetDownloadInfo {
 }
 
 #[derive(Clone, Debug)]
+#[frb(json_serializable)]
 pub struct DartXetUploadInfo {
     pub hash: String,
     pub file_size: u64,

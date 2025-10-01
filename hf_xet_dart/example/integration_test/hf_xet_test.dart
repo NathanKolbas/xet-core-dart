@@ -23,7 +23,9 @@ void main() {
           token: '',
           expiration: BigInt.from(DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch),
         ),
-        progressUpdater: (file, progress) => print('file: $file, progress: $progress'),
+        progressUpdater: (file, totalUpdate, itemUpdates) {
+          print('file: $file, totalUpdate: $totalUpdate, itemUpdates: $itemUpdates');
+        },
       );
       print(f);
     });

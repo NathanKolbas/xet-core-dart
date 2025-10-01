@@ -1,5 +1,5 @@
 name: hf_xet
-description: "Forked xet client tech with dart support, used in huggingface_hub"
+description: "xet client tech with dart support, used in huggingface_hub"
 version: 0.0.1
 homepage: https://github.com/NathanKolbas/xet-core-dart
 repository: https://github.com/NathanKolbas/xet-core-dart
@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_rust_bridge: 2.11.1
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
   plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
@@ -34,6 +36,9 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   integration_test:
     sdk: flutter
+  freezed: ^3.2.3
+  build_runner: ^2.9.0
+  json_serializable: ^6.11.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

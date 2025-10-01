@@ -37,11 +37,9 @@ flutter pub install hf_xet
 
 `hf_xet` is not intended to be run independently as it is expected to be used from `huggingface_hub`, so to get started with `huggingface_hub` check out the documentation [here]("https://hf.co/docs/huggingface_hub").
 
-## Known Issues
+## Known Issues/Limits
 
-Xet only works on 64-bit systems; 32-bit systems are [not supported](https://huggingface.co/docs/hub/en/storage-backends#current-limitations). Because of this, cargokit is struggling to compile the rust code. This is due to cargokit always adding `i686-linux-android` target (which flutter no longer supports anyway). This will be fixed once the following GitHub issue is merged: https://github.com/irondash/cargokit/pull/111.
-
-In the meantime, you will have to manually disable it by commenting out/removing the same code in `gradle/plugin.gradle` or do not run a debug build. Otherwise, Xet will not work. If someone has a better interim solution I would gladly love to hear it.
+Xet only works on 64-bit systems; 32-bit systems are [not supported](https://huggingface.co/docs/hub/en/storage-backends#current-limitations).
 
 ## Contributions (feature requests, bugs, etc.) are encouraged & appreciated 💙💚💛💜🧡❤️
 

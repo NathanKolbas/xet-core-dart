@@ -4,6 +4,7 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api.dart';
+import 'api/progress_update.dart';
 import 'api/token_refresh.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -95,7 +96,12 @@ abstract class RustLibApi extends BaseApi {
     String? hfHome,
     (String, BigInt)? tokenInfo,
     required FutureOr<DartTokenInfo> Function() tokenRefresher,
-    required FutureOr<void> Function(String, BigInt) progressUpdater,
+    required FutureOr<void> Function(
+      String,
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    progressUpdater,
   });
 
   Future<void> crateApiHfXet({
@@ -112,7 +118,11 @@ abstract class RustLibApi extends BaseApi {
     String? hfHome,
     (String, BigInt)? tokenInfo,
     required FutureOr<DartTokenInfo> Function() tokenRefresher,
-    required FutureOr<void> Function(BigInt) progressUpdater,
+    required FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    progressUpdater,
     String? repoType,
   });
 
@@ -122,7 +132,11 @@ abstract class RustLibApi extends BaseApi {
     String? hfHome,
     (String, BigInt)? tokenInfo,
     required FutureOr<DartTokenInfo> Function() tokenRefresher,
-    required FutureOr<void> Function(BigInt) progressUpdater,
+    required FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    progressUpdater,
     String? repoType,
   });
 }
@@ -214,7 +228,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     String? hfHome,
     (String, BigInt)? tokenInfo,
     required FutureOr<DartTokenInfo> Function() tokenRefresher,
-    required FutureOr<void> Function(String, BigInt) progressUpdater,
+    required FutureOr<void> Function(
+      String,
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    progressUpdater,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -228,7 +247,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             tokenRefresher,
             serializer,
           );
-          sse_encode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
+          sse_encode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
             progressUpdater,
             serializer,
           );
@@ -348,7 +367,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     String? hfHome,
     (String, BigInt)? tokenInfo,
     required FutureOr<DartTokenInfo> Function() tokenRefresher,
-    required FutureOr<void> Function(BigInt) progressUpdater,
+    required FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    progressUpdater,
     String? repoType,
   }) {
     return handler.executeNormal(
@@ -363,7 +386,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             tokenRefresher,
             serializer,
           );
-          sse_encode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
+          sse_encode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
             progressUpdater,
             serializer,
           );
@@ -414,7 +437,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     String? hfHome,
     (String, BigInt)? tokenInfo,
     required FutureOr<DartTokenInfo> Function() tokenRefresher,
-    required FutureOr<void> Function(BigInt) progressUpdater,
+    required FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    progressUpdater,
     String? repoType,
   }) {
     return handler.executeNormal(
@@ -429,7 +456,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             tokenRefresher,
             serializer,
           );
-          sse_encode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
+          sse_encode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
             progressUpdater,
             serializer,
           );
@@ -473,18 +500,24 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     ],
   );
 
-  Future<void> Function(int, dynamic, dynamic)
-  encode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
-    FutureOr<void> Function(String, BigInt) raw,
+  Future<void> Function(int, dynamic, dynamic, dynamic)
+  encode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    FutureOr<void> Function(
+      String,
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    raw,
   ) {
-    return (callId, rawArg0, rawArg1) async {
+    return (callId, rawArg0, rawArg1, rawArg2) async {
       final arg0 = dco_decode_String(rawArg0);
-      final arg1 = dco_decode_u_64(rawArg1);
+      final arg1 = dco_decode_dart_total_progress_update(rawArg1);
+      final arg2 = dco_decode_list_dart_item_progress_update(rawArg2);
 
       Box<void>? rawOutput;
       Box<AnyhowException>? rawError;
       try {
-        rawOutput = Box(await raw(arg0, arg1));
+        rawOutput = Box(await raw(arg0, arg1, arg2));
       } catch (e, s) {
         rawError = Box(AnyhowException("$e\n\n$s"));
       }
@@ -608,17 +641,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     };
   }
 
-  Future<void> Function(int, dynamic)
-  encode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
-    FutureOr<void> Function(BigInt) raw,
+  Future<void> Function(int, dynamic, dynamic)
+  encode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    raw,
   ) {
-    return (callId, rawArg0) async {
-      final arg0 = dco_decode_u_64(rawArg0);
+    return (callId, rawArg0, rawArg1) async {
+      final arg0 = dco_decode_dart_total_progress_update(rawArg0);
+      final arg1 = dco_decode_list_dart_item_progress_update(rawArg1);
 
       Box<void>? rawOutput;
       Box<AnyhowException>? rawError;
       try {
-        rawOutput = Box(await raw(arg0));
+        rawOutput = Box(await raw(arg0, arg1));
       } catch (e, s) {
         rawError = Box(AnyhowException("$e\n\n$s"));
       }
@@ -650,8 +688,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FutureOr<void> Function(String, BigInt)
-  dco_decode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
+  FutureOr<void> Function(
+    String,
+    DartTotalProgressUpdate,
+    List<DartItemProgressUpdate>,
+  )
+  dco_decode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
     dynamic raw,
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -682,8 +724,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  FutureOr<void> Function(BigInt)
-  dco_decode_DartFn_Inputs_u_64_Output_unit_AnyhowException(dynamic raw) {
+  FutureOr<void> Function(DartTotalProgressUpdate, List<DartItemProgressUpdate>)
+  dco_decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    dynamic raw,
+  ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError('');
   }
@@ -701,9 +745,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  double dco_decode_box_autoadd_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
   (String, BigInt) dco_decode_box_autoadd_record_string_u_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as (String, BigInt);
+  }
+
+  @protected
+  DartItemProgressUpdate dco_decode_dart_item_progress_update(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return DartItemProgressUpdate(
+      itemName: dco_decode_String(arr[0]),
+      totalBytes: dco_decode_u_64(arr[1]),
+      bytesCompleted: dco_decode_u_64(arr[2]),
+      bytesCompletionIncrement: dco_decode_u_64(arr[3]),
+    );
   }
 
   @protected
@@ -715,6 +779,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return DartTokenInfo(
       token: dco_decode_String(arr[0]),
       expiration: dco_decode_u_64(arr[1]),
+    );
+  }
+
+  @protected
+  DartTotalProgressUpdate dco_decode_dart_total_progress_update(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 10)
+      throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    return DartTotalProgressUpdate(
+      totalBytes: dco_decode_u_64(arr[0]),
+      totalBytesIncrement: dco_decode_u_64(arr[1]),
+      totalBytesCompleted: dco_decode_u_64(arr[2]),
+      totalBytesCompletionIncrement: dco_decode_u_64(arr[3]),
+      totalBytesCompletionRate: dco_decode_opt_box_autoadd_f_64(arr[4]),
+      totalTransferBytes: dco_decode_u_64(arr[5]),
+      totalTransferBytesIncrement: dco_decode_u_64(arr[6]),
+      totalTransferBytesCompleted: dco_decode_u_64(arr[7]),
+      totalTransferBytesCompletionIncrement: dco_decode_u_64(arr[8]),
+      totalTransferBytesCompletionRate: dco_decode_opt_box_autoadd_f_64(arr[9]),
     );
   }
 
@@ -744,6 +828,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  double dco_decode_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
   PlatformInt64 dco_decode_isize(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dcoDecodeI64(raw);
@@ -753,6 +843,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   List<String> dco_decode_list_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_String).toList();
+  }
+
+  @protected
+  List<DartItemProgressUpdate> dco_decode_list_dart_item_progress_update(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_dart_item_progress_update)
+        .toList();
   }
 
   @protected
@@ -787,6 +887,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   String? dco_decode_opt_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  double? dco_decode_opt_box_autoadd_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_f_64(raw);
   }
 
   @protected
@@ -851,6 +957,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  double sse_decode_box_autoadd_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_f_64(deserializer));
+  }
+
+  @protected
   (String, BigInt) sse_decode_box_autoadd_record_string_u_64(
     SseDeserializer deserializer,
   ) {
@@ -859,11 +971,64 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  DartItemProgressUpdate sse_decode_dart_item_progress_update(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_itemName = sse_decode_String(deserializer);
+    var var_totalBytes = sse_decode_u_64(deserializer);
+    var var_bytesCompleted = sse_decode_u_64(deserializer);
+    var var_bytesCompletionIncrement = sse_decode_u_64(deserializer);
+    return DartItemProgressUpdate(
+      itemName: var_itemName,
+      totalBytes: var_totalBytes,
+      bytesCompleted: var_bytesCompleted,
+      bytesCompletionIncrement: var_bytesCompletionIncrement,
+    );
+  }
+
+  @protected
   DartTokenInfo sse_decode_dart_token_info(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_token = sse_decode_String(deserializer);
     var var_expiration = sse_decode_u_64(deserializer);
     return DartTokenInfo(token: var_token, expiration: var_expiration);
+  }
+
+  @protected
+  DartTotalProgressUpdate sse_decode_dart_total_progress_update(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_totalBytes = sse_decode_u_64(deserializer);
+    var var_totalBytesIncrement = sse_decode_u_64(deserializer);
+    var var_totalBytesCompleted = sse_decode_u_64(deserializer);
+    var var_totalBytesCompletionIncrement = sse_decode_u_64(deserializer);
+    var var_totalBytesCompletionRate = sse_decode_opt_box_autoadd_f_64(
+      deserializer,
+    );
+    var var_totalTransferBytes = sse_decode_u_64(deserializer);
+    var var_totalTransferBytesIncrement = sse_decode_u_64(deserializer);
+    var var_totalTransferBytesCompleted = sse_decode_u_64(deserializer);
+    var var_totalTransferBytesCompletionIncrement = sse_decode_u_64(
+      deserializer,
+    );
+    var var_totalTransferBytesCompletionRate = sse_decode_opt_box_autoadd_f_64(
+      deserializer,
+    );
+    return DartTotalProgressUpdate(
+      totalBytes: var_totalBytes,
+      totalBytesIncrement: var_totalBytesIncrement,
+      totalBytesCompleted: var_totalBytesCompleted,
+      totalBytesCompletionIncrement: var_totalBytesCompletionIncrement,
+      totalBytesCompletionRate: var_totalBytesCompletionRate,
+      totalTransferBytes: var_totalTransferBytes,
+      totalTransferBytesIncrement: var_totalTransferBytesIncrement,
+      totalTransferBytesCompleted: var_totalTransferBytesCompleted,
+      totalTransferBytesCompletionIncrement:
+          var_totalTransferBytesCompletionIncrement,
+      totalTransferBytesCompletionRate: var_totalTransferBytesCompletionRate,
+    );
   }
 
   @protected
@@ -892,6 +1057,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  double sse_decode_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat64();
+  }
+
+  @protected
   PlatformInt64 sse_decode_isize(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getPlatformInt64();
@@ -905,6 +1076,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var ans_ = <String>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_String(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<DartItemProgressUpdate> sse_decode_list_dart_item_progress_update(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <DartItemProgressUpdate>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_dart_item_progress_update(deserializer));
     }
     return ans_;
   }
@@ -964,6 +1149,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  double? sse_decode_opt_box_autoadd_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_f_64(deserializer));
     } else {
       return null;
     }
@@ -1035,13 +1231,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(
-    FutureOr<void> Function(String, BigInt) self,
+  void
+  sse_encode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    FutureOr<void> Function(
+      String,
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_DartOpaque(
-      encode_DartFn_Inputs_String_u_64_Output_unit_AnyhowException(self),
+      encode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+        self,
+      ),
       serializer,
     );
   }
@@ -1083,13 +1287,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_DartFn_Inputs_u_64_Output_unit_AnyhowException(
-    FutureOr<void> Function(BigInt) self,
+  void
+  sse_encode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+    FutureOr<void> Function(
+      DartTotalProgressUpdate,
+      List<DartItemProgressUpdate>,
+    )
+    self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_DartOpaque(
-      encode_DartFn_Inputs_u_64_Output_unit_AnyhowException(self),
+      encode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
+        self,
+      ),
       serializer,
     );
   }
@@ -1116,12 +1327,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_f_64(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_f_64(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_record_string_u_64(
     (String, BigInt) self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_record_string_u_64(self, serializer);
+  }
+
+  @protected
+  void sse_encode_dart_item_progress_update(
+    DartItemProgressUpdate self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.itemName, serializer);
+    sse_encode_u_64(self.totalBytes, serializer);
+    sse_encode_u_64(self.bytesCompleted, serializer);
+    sse_encode_u_64(self.bytesCompletionIncrement, serializer);
   }
 
   @protected
@@ -1132,6 +1361,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.token, serializer);
     sse_encode_u_64(self.expiration, serializer);
+  }
+
+  @protected
+  void sse_encode_dart_total_progress_update(
+    DartTotalProgressUpdate self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.totalBytes, serializer);
+    sse_encode_u_64(self.totalBytesIncrement, serializer);
+    sse_encode_u_64(self.totalBytesCompleted, serializer);
+    sse_encode_u_64(self.totalBytesCompletionIncrement, serializer);
+    sse_encode_opt_box_autoadd_f_64(self.totalBytesCompletionRate, serializer);
+    sse_encode_u_64(self.totalTransferBytes, serializer);
+    sse_encode_u_64(self.totalTransferBytesIncrement, serializer);
+    sse_encode_u_64(self.totalTransferBytesCompleted, serializer);
+    sse_encode_u_64(self.totalTransferBytesCompletionIncrement, serializer);
+    sse_encode_opt_box_autoadd_f_64(
+      self.totalTransferBytesCompletionRate,
+      serializer,
+    );
   }
 
   @protected
@@ -1156,6 +1406,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_f_64(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat64(self);
+  }
+
+  @protected
   void sse_encode_isize(PlatformInt64 self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putPlatformInt64(self);
@@ -1167,6 +1423,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_String(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_dart_item_progress_update(
+    List<DartItemProgressUpdate> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_dart_item_progress_update(item, serializer);
     }
   }
 
@@ -1223,6 +1491,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_f_64(double? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_f_64(self, serializer);
     }
   }
 
