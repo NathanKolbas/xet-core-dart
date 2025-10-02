@@ -33,7 +33,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.RELEASE_PRIVATE_KEY }}
       - name: Precompile (with Android)
         if: (matrix.os == 'ubuntu-latest')
-        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=NathanKolbas/xet-core-dart --android-sdk-location=/usr/local/lib/android/sdk --android-ndk-version=27.0.12077973 --android-min-sdk-version=21
+        run: dart run build_tool precompile-binaries -v --manifest-dir=../../rust --repository=NathanKolbas/xet-core-dart --android-sdk-location=/usr/local/lib/android/sdk --android-ndk-version=27.3.13750724 --android-min-sdk-version=21
         working-directory: cargokit/build_tool
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
