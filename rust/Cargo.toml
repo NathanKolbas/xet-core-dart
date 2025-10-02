@@ -10,12 +10,12 @@ crate-type = ["cdylib", "staticlib"]
 [dependencies]
 flutter_rust_bridge = "=2.11.1"
 
-cas_client = { path = "../../cas_client" }
-data = { path = "../../data" }
-error_printer = { path = "../../error_printer" }
-progress_tracking = { path = "../../progress_tracking" }
-utils = { path = "../../utils" }
-xet_runtime = { path = "../../xet_runtime" }
+cas_client = { path = "../xet-core/cas_client" }
+data = { path = "../xet-core/data" }
+error_printer = { path = "../xet-core/error_printer" }
+progress_tracking = { path = "../xet-core/progress_tracking" }
+utils = { path = "../xet-core/utils" }
+xet_runtime = { path = "../xet-core/xet_runtime" }
 
 async-trait = "0.1"
 bipbuffer = "0.1"
