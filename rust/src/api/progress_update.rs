@@ -1,12 +1,7 @@
-use std::fmt::{Debug, Formatter};
 use std::sync::Arc;
 use flutter_rust_bridge::{frb, DartFnFuture};
 use error_printer::ErrorPrinter;
-use itertools::Itertools;
-use serde::{Deserialize, Serialize};
 use progress_tracking::{ProgressUpdate, TrackingProgressUpdater};
-use tracing::error;
-use utils::auth::TokenInfo;
 use xet_runtime::exports::tokio;
 
 use crate::api::runtime::convert_multithreading_error;
@@ -70,7 +65,7 @@ pub struct DartTotalProgressUpdate {
     /// The total bytes known for processing and possibly uploaded or downloaded.
     pub total_bytes: u64,
 
-    /// How much total_bytes has changed from the last update..
+    /// How much total_bytes has changed from the last update.
     pub total_bytes_increment: u64,
 
     /// How many of the bytes queued for processing have been examined

@@ -49,7 +49,7 @@ fn init_logging_to_file(path: &Path) -> Result<(), std::io::Error> {
     let (writer, guard) = non_blocking(file_appender);
 
     // Store the guard globally so it isn’t dropped.
-    static FILE_GUARD: OnceLock<tracing_appender::non_blocking::WorkerGuard> = OnceLock::new();
+    static FILE_GUARD: OnceLock<non_blocking::WorkerGuard> = OnceLock::new();
     let _ = FILE_GUARD.set(guard); // ignore error if already initialised
 
     let registry = tracing_subscriber::registry();

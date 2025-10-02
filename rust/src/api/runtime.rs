@@ -157,7 +157,7 @@ pub fn init_threadpool() -> Result<Arc<XetRuntime>, MultithreadedRuntimeError> {
     // may cause a deadlock if the thread that has the GIL tries to acquire the runtime,
     // but then the logging expects the GIL in order to initialize it properly.
     //
-    // In most cases, this will done on module initialization; however, after CTRL-C, the runtime is
+    // In most cases, this will be done on module initialization; however, after CTRL-C, the runtime is
     // initialized lazily and so putting this here avoids the deadlock (and possibly some info! or other
     // error statements may not be sent to python if the other thread continues ahead of the logging
     // being initialized.)
@@ -193,7 +193,7 @@ pub fn convert_multithreading_error(e: impl Into<MultithreadedRuntimeError> + st
 
 pub fn async_run<Out, F>(execution_call: F) -> Result<Out, String>
 where
-    F: std::future::Future + Send + 'static,
+    F: Future + Send + 'static,
     F::Output: Into<Result<Out, String>> + Send + Sync,
     Out: Send + Sync + 'static,
 {

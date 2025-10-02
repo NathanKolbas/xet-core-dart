@@ -15,7 +15,7 @@ pub struct DartWrapper {
 }
 
 impl DartWrapper {
-    fn new(
+    pub fn new(
         dart_version: impl Fn() -> DartFnFuture<String> + Send + Sync + 'static,
         hf_xet_version: impl Fn() -> DartFnFuture<String> + Send + Sync + 'static,
         huggingface_hub_version: impl Fn() -> DartFnFuture<Option<String>> + Send + Sync + 'static,

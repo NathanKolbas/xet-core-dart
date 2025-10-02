@@ -59,9 +59,14 @@ fn wire__crate__api__dart_xet_download_info_new_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
             };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_destination_path = <String>::sse_decode(&mut deserializer);
             let api_hash = <String>::sse_decode(&mut deserializer);
             let api_file_size = <u64>::sse_decode(&mut deserializer);
@@ -93,15 +98,23 @@ fn wire__crate__api__dart_xet_upload_info_new_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
             };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_hash = <String>::sse_decode(&mut deserializer);
             let api_file_size = <u64>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok(crate::api::DartXetUploadInfo::new(api_hash, api_file_size))?;
+                    let output_ok = Result::<_, ()>::Ok(crate::api::DartXetUploadInfo::new(
+                        api_hash,
+                        api_file_size,
+                    ))?;
                     Ok(output_ok)
                 })())
             }
@@ -142,25 +155,34 @@ fn wire__crate__api__hf_xet_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
             };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_dart_version = decode_DartFn_Inputs__Output_String_AnyhowException(
                 <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
             );
             let api_hf_xet_version = decode_DartFn_Inputs__Output_String_AnyhowException(
                 <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
             );
-            let api_huggingface_hub_version = decode_DartFn_Inputs__Output_opt_String_AnyhowException(
-                <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
-            );
+            let api_huggingface_hub_version =
+                decode_DartFn_Inputs__Output_opt_String_AnyhowException(
+                    <flutter_rust_bridge::DartOpaque>::sse_decode(&mut deserializer),
+                );
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, String>(
                     (move || async move {
-                        let output_ok =
-                            crate::api::hf_xet(api_dart_version, api_hf_xet_version, api_huggingface_hub_version)
-                                .await?;
+                        let output_ok = crate::api::hf_xet(
+                            api_dart_version,
+                            api_hf_xet_version,
+                            api_huggingface_hub_version,
+                        )
+                        .await?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -183,9 +205,14 @@ fn wire__crate__api__dart__init_app_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
             };
-            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, ()>((move || {
@@ -263,15 +290,17 @@ fn decode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progres
             arg1.into_into_dart().into_dart(),
             arg2.into_into_dart().into_dart(),
         ];
-        let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
+        let message = FLUTTER_RUST_BRIDGE_HANDLER
+            .dart_fn_invoke(dart_opaque, args)
+            .await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
         let action = deserializer.cursor.read_u8().unwrap();
         let ans = match action {
             0 => std::result::Result::Ok(<()>::sse_decode(&mut deserializer)),
-            1 => std::result::Result::Err(<flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(
-                &mut deserializer,
-            )),
+            1 => std::result::Result::Err(
+                <flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(&mut deserializer),
+            ),
             _ => unreachable!(),
         };
         deserializer.end();
@@ -282,7 +311,12 @@ fn decode_DartFn_Inputs_String_dart_total_progress_update_list_dart_item_progres
     move |arg0: String,
           arg1: crate::api::progress_update::DartTotalProgressUpdate,
           arg2: Vec<crate::api::progress_update::DartItemProgressUpdate>| {
-        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone(), arg0, arg1, arg2))
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(
+            dart_opaque.clone(),
+            arg0,
+            arg1,
+            arg2,
+        ))
     }
 }
 fn decode_DartFn_Inputs__Output_String_AnyhowException(
@@ -292,15 +326,17 @@ fn decode_DartFn_Inputs__Output_String_AnyhowException(
 
     async fn body(dart_opaque: flutter_rust_bridge::DartOpaque) -> String {
         let args = vec![];
-        let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
+        let message = FLUTTER_RUST_BRIDGE_HANDLER
+            .dart_fn_invoke(dart_opaque, args)
+            .await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
         let action = deserializer.cursor.read_u8().unwrap();
         let ans = match action {
             0 => std::result::Result::Ok(<String>::sse_decode(&mut deserializer)),
-            1 => std::result::Result::Err(<flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(
-                &mut deserializer,
-            )),
+            1 => std::result::Result::Err(
+                <flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(&mut deserializer),
+            ),
             _ => unreachable!(),
         };
         deserializer.end();
@@ -308,24 +344,32 @@ fn decode_DartFn_Inputs__Output_String_AnyhowException(
         ans
     }
 
-    move || flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
+    move || {
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
+    }
 }
 fn decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(
     dart_opaque: flutter_rust_bridge::DartOpaque,
 ) -> impl Fn() -> flutter_rust_bridge::DartFnFuture<crate::api::token_refresh::DartTokenInfo> {
     use flutter_rust_bridge::IntoDart;
 
-    async fn body(dart_opaque: flutter_rust_bridge::DartOpaque) -> crate::api::token_refresh::DartTokenInfo {
+    async fn body(
+        dart_opaque: flutter_rust_bridge::DartOpaque,
+    ) -> crate::api::token_refresh::DartTokenInfo {
         let args = vec![];
-        let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
+        let message = FLUTTER_RUST_BRIDGE_HANDLER
+            .dart_fn_invoke(dart_opaque, args)
+            .await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
         let action = deserializer.cursor.read_u8().unwrap();
         let ans = match action {
-            0 => std::result::Result::Ok(<crate::api::token_refresh::DartTokenInfo>::sse_decode(&mut deserializer)),
-            1 => std::result::Result::Err(<flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(
+            0 => std::result::Result::Ok(<crate::api::token_refresh::DartTokenInfo>::sse_decode(
                 &mut deserializer,
             )),
+            1 => std::result::Result::Err(
+                <flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(&mut deserializer),
+            ),
             _ => unreachable!(),
         };
         deserializer.end();
@@ -333,7 +377,9 @@ fn decode_DartFn_Inputs__Output_dart_token_info_AnyhowException(
         ans
     }
 
-    move || flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
+    move || {
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
+    }
 }
 fn decode_DartFn_Inputs__Output_opt_String_AnyhowException(
     dart_opaque: flutter_rust_bridge::DartOpaque,
@@ -342,15 +388,17 @@ fn decode_DartFn_Inputs__Output_opt_String_AnyhowException(
 
     async fn body(dart_opaque: flutter_rust_bridge::DartOpaque) -> Option<String> {
         let args = vec![];
-        let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
+        let message = FLUTTER_RUST_BRIDGE_HANDLER
+            .dart_fn_invoke(dart_opaque, args)
+            .await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
         let action = deserializer.cursor.read_u8().unwrap();
         let ans = match action {
             0 => std::result::Result::Ok(<Option<String>>::sse_decode(&mut deserializer)),
-            1 => std::result::Result::Err(<flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(
-                &mut deserializer,
-            )),
+            1 => std::result::Result::Err(
+                <flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(&mut deserializer),
+            ),
             _ => unreachable!(),
         };
         deserializer.end();
@@ -358,7 +406,9 @@ fn decode_DartFn_Inputs__Output_opt_String_AnyhowException(
         ans
     }
 
-    move || flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
+    move || {
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone()))
+    }
 }
 fn decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_update_Output_unit_AnyhowException(
     dart_opaque: flutter_rust_bridge::DartOpaque,
@@ -373,16 +423,21 @@ fn decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_updat
         arg0: crate::api::progress_update::DartTotalProgressUpdate,
         arg1: Vec<crate::api::progress_update::DartItemProgressUpdate>,
     ) -> () {
-        let args = vec![arg0.into_into_dart().into_dart(), arg1.into_into_dart().into_dart()];
-        let message = FLUTTER_RUST_BRIDGE_HANDLER.dart_fn_invoke(dart_opaque, args).await;
+        let args = vec![
+            arg0.into_into_dart().into_dart(),
+            arg1.into_into_dart().into_dart(),
+        ];
+        let message = FLUTTER_RUST_BRIDGE_HANDLER
+            .dart_fn_invoke(dart_opaque, args)
+            .await;
 
         let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
         let action = deserializer.cursor.read_u8().unwrap();
         let ans = match action {
             0 => std::result::Result::Ok(<()>::sse_decode(&mut deserializer)),
-            1 => std::result::Result::Err(<flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(
-                &mut deserializer,
-            )),
+            1 => std::result::Result::Err(
+                <flutter_rust_bridge::for_generated::anyhow::Error>::sse_decode(&mut deserializer),
+            ),
             _ => unreachable!(),
         };
         deserializer.end();
@@ -392,7 +447,11 @@ fn decode_DartFn_Inputs_dart_total_progress_update_list_dart_item_progress_updat
 
     move |arg0: crate::api::progress_update::DartTotalProgressUpdate,
           arg1: Vec<crate::api::progress_update::DartItemProgressUpdate>| {
-        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(dart_opaque.clone(), arg0, arg1))
+        flutter_rust_bridge::for_generated::convert_into_dart_fn_future(body(
+            dart_opaque.clone(),
+            arg0,
+            arg1,
+        ))
     }
 }
 
@@ -536,7 +595,9 @@ impl SseDecode for Vec<crate::api::progress_update::DartItemProgressUpdate> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::progress_update::DartItemProgressUpdate>::sse_decode(deserializer));
+            ans_.push(
+                <crate::api::progress_update::DartItemProgressUpdate>::sse_decode(deserializer),
+            );
         }
         return ans_;
     }
@@ -739,7 +800,10 @@ impl flutter_rust_bridge::IntoDart for crate::api::token_refresh::DartTokenInfo 
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::token_refresh::DartTokenInfo {}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::token_refresh::DartTokenInfo
+{
+}
 impl flutter_rust_bridge::IntoIntoDart<crate::api::token_refresh::DartTokenInfo>
     for crate::api::token_refresh::DartTokenInfo
 {
@@ -754,13 +818,25 @@ impl flutter_rust_bridge::IntoDart for crate::api::progress_update::DartTotalPro
             self.total_bytes.into_into_dart().into_dart(),
             self.total_bytes_increment.into_into_dart().into_dart(),
             self.total_bytes_completed.into_into_dart().into_dart(),
-            self.total_bytes_completion_increment.into_into_dart().into_dart(),
-            self.total_bytes_completion_rate.into_into_dart().into_dart(),
+            self.total_bytes_completion_increment
+                .into_into_dart()
+                .into_dart(),
+            self.total_bytes_completion_rate
+                .into_into_dart()
+                .into_dart(),
             self.total_transfer_bytes.into_into_dart().into_dart(),
-            self.total_transfer_bytes_increment.into_into_dart().into_dart(),
-            self.total_transfer_bytes_completed.into_into_dart().into_dart(),
-            self.total_transfer_bytes_completion_increment.into_into_dart().into_dart(),
-            self.total_transfer_bytes_completion_rate.into_into_dart().into_dart(),
+            self.total_transfer_bytes_increment
+                .into_into_dart()
+                .into_dart(),
+            self.total_transfer_bytes_completed
+                .into_into_dart()
+                .into_dart(),
+            self.total_transfer_bytes_completion_increment
+                .into_into_dart()
+                .into_dart(),
+            self.total_transfer_bytes_completion_rate
+                .into_into_dart()
+                .into_dart(),
         ]
         .into_dart()
     }
@@ -787,8 +863,13 @@ impl flutter_rust_bridge::IntoDart for crate::api::DartXetDownloadInfo {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::DartXetDownloadInfo {}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::DartXetDownloadInfo> for crate::api::DartXetDownloadInfo {
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::DartXetDownloadInfo
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::DartXetDownloadInfo>
+    for crate::api::DartXetDownloadInfo
+{
     fn into_into_dart(self) -> crate::api::DartXetDownloadInfo {
         self
     }
@@ -804,7 +885,9 @@ impl flutter_rust_bridge::IntoDart for crate::api::DartXetUploadInfo {
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::DartXetUploadInfo {}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::DartXetUploadInfo> for crate::api::DartXetUploadInfo {
+impl flutter_rust_bridge::IntoIntoDart<crate::api::DartXetUploadInfo>
+    for crate::api::DartXetUploadInfo
+{
     fn into_into_dart(self) -> crate::api::DartXetUploadInfo {
         self
     }
@@ -892,7 +975,10 @@ impl SseEncode for f64 {
 impl SseEncode for isize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer.cursor.write_i64::<NativeEndian>(self as _).unwrap();
+        serializer
+            .cursor
+            .write_i64::<NativeEndian>(self as _)
+            .unwrap();
     }
 }
 
@@ -1016,7 +1102,10 @@ impl SseEncode for () {
 impl SseEncode for usize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer.cursor.write_u64::<NativeEndian>(self as _).unwrap();
+        serializer
+            .cursor
+            .write_u64::<NativeEndian>(self as _)
+            .unwrap();
     }
 }
 
@@ -1042,7 +1131,9 @@ mod io {
     // Section: imports
 
     use super::*;
-    use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
+    use flutter_rust_bridge::for_generated::byteorder::{
+        NativeEndian, ReadBytesExt, WriteBytesExt,
+    };
     use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
     use flutter_rust_bridge::{Handler, IntoIntoDart};
 
@@ -1062,7 +1153,9 @@ mod web {
     // Section: imports
 
     use super::*;
-    use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
+    use flutter_rust_bridge::for_generated::byteorder::{
+        NativeEndian, ReadBytesExt, WriteBytesExt,
+    };
     use flutter_rust_bridge::for_generated::wasm_bindgen;
     use flutter_rust_bridge::for_generated::wasm_bindgen::prelude::*;
     use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};

@@ -206,7 +206,6 @@ fn try_parse_progress_updaters(
     Ok(updaters)
 }
 
-// TODO: we won't need to subclass this in the next major version update.
 #[derive(Clone, Debug)]
 #[frb(json_serializable)]
 pub struct DartXetDownloadInfo {
@@ -276,11 +275,11 @@ pub async fn hf_xet(
     hf_xet_version: impl Fn() -> DartFnFuture<String> + Send + Sync + 'static,
     huggingface_hub_version: impl Fn() -> DartFnFuture<Option<String>> + Send + Sync + 'static,
 ) -> Result<(), String> {
-    let dw: DartWrapper = DartWrapper {
-        dart_version: Box::new(dart_version),
-        hf_xet_version: Box::new(hf_xet_version),
-        huggingface_hub_version: Box::new(huggingface_hub_version),
-    };
+    let dw: DartWrapper = DartWrapper::new(
+        dart_version,
+        hf_xet_version,
+        huggingface_hub_version,
+    );
 
     // Make sure the logger is set up.
     // We don't want to set it up on Android, iOS, or WASM since that is handled by
