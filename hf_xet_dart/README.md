@@ -33,6 +33,50 @@ Install the `hf_xet` package with [pub](https://pub.dev/packages/hf-xet/):
 flutter pub install hf_xet
 ```
 
+## Setup
+
+To make sure everything is set up call `HfXet.ensureInitialized` from the initialization of your application. Here is an example for a flutter application:
+
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:hf_xet/hf_xet.dart';
+
+void main() async {  
+  WidgetsFlutterBinding.ensureInitialized();
+  await HfXet.ensureInitialized();
+  
+  // Rest of your main function...
+}
+```
+
+### MacOS
+
+You may need the internet permission so that models can be downloaded. To do this add the following to both your `macos/Runner/DebugProfile.entitlements` and `macos/Runner/Release.entitlements`:
+
+```xml
+<key>com.apple.security.network.client</key>
+<true/>
+```
+
+If you are looking for a concrete example checkout the `example/` directory.
+
+TODO: This might be possible to put directly in the package so others don't have to do this
+
+### iOS
+
+You may need the internet permission so that models can be downloaded. To do this add the following to your `ios/Runner/Info.plist`:
+
+```xml
+<key>NSAppTransportSecurity</key>
+<dict>
+   <key>NSAllowsArbitraryLoads</key><true/>
+</dict>
+```
+
+I did not have to do this but just in case you run into this issue you'll know how to fix it.
+
+TODO: This might be possible to put directly in the package so others don't have to do this
+
 ## Quick Start
 
 `hf_xet` is not intended to be run independently as it is expected to be used from `huggingface_hub`, so to get started with `huggingface_hub` check out the documentation [here]("https://hf.co/docs/huggingface_hub").
