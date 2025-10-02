@@ -17,7 +17,12 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('flutter_rust_bridge quickstart')),
         body: Center(
-          child: Text('Hi :)'),
+          child: Text(
+            'Hi :)'
+            '\n\n'
+            'If you want to try out this library check out the example in hugginface_hub_dart',
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
